@@ -31,5 +31,15 @@ run-all-serial: cam-data clean-video run-serial video
 
 everything-serial: all-serial run-all-serial
 
+
+#MAKE WITH GPROF PROFILING ENABLED
+gprof-mandelbox: CFLAGS = -O3 -Wall -g -pg -fprofile-arcs -ftest-coverage
+gprof-mandelbox: CXXFLAGS = -O3 -Wall -g -pg -fprofile-arcs -ftest-coverage
+gprof-mandelbox: main.o print.o timing.o savebmp.o getparams.o 3d.o getcolor.o distance_est.o mandelboxde.o raymarching.o renderer.o init3D.o
+	$(CC) -fprofile-arcs -ftest-coverage -pg -g -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+run-gprof-serial: mandelbox-gprof
+	./mandelbox-gprof params.dat; gprof mandelbox-gprof gmon.out;
+
 clean:
 	$(RM) *.o $(PROGRAM_NAME)$(EXEEXT) *~ generate_cam_data
