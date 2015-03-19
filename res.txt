@@ -1,0 +1,235 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 90.59     42.29    42.29 325959167     0.00     0.00  MandelBoxDE(vec3 const&, MandelBoxParams const&)
+  5.82     45.01     2.72  8294400     0.00     0.00  rayMarch(RenderParams const&, vec3 const&, vec3 const&, pixelData&)
+  1.24     45.59     0.58        1     0.58    46.68  renderFractal(CameraParams const&, RenderParams const&, unsigned char*)
+  1.10     46.10     0.52  8294400     0.00     0.00  UnProject(double, double, CameraParams, double*)
+  0.58     46.37     0.27 325959167     0.00     0.00  DE(vec3 const&)
+  0.39     46.55     0.18  8294400     0.00     0.00  getColour(pixelData const&, RenderParams const&, vec3 const&, vec3 const&)
+  0.27     46.68     0.13  1928759     0.00     0.00  normal(vec3 const&, vec3&)
+  0.03     46.69     0.02        1     0.02     0.02  LookAt(double*, double*, double*, double*)
+  0.02     46.70     0.01        1     0.01     0.01  saveBMP(char const*, unsigned char const*, int, int)
+  0.00     46.70     0.00     2161     0.00     0.00  getTime()
+  0.00     46.70     0.00     2160     0.00     0.00  printProgress(double, double)
+  0.00     46.70     0.00        3     0.00     0.00  MultiplyMatrices(double*, double const*, double const*)
+  0.00     46.70     0.00        2     0.00     0.00  LoadIdentity(double*)
+  0.00     46.70     0.00        1     0.00     0.00  global constructors keyed to _Z8lightingRK4vec3S1_S1_S1_RS_
+  0.00     46.70     0.00        1     0.00     0.00  Perspective(double, double, double, double, double*)
+  0.00     46.70     0.00        1     0.00     0.00  InvertMatrix(double*, double*)
+  0.00     46.70     0.00        1     0.00     0.00  getParameters(char*, CameraParams*, RenderParams*, MandelBoxParams*)
+  0.00     46.70     0.00        1     0.00     0.02  init3D(CameraParams*, RenderParams const*)
+  0.00     46.70     0.00        1     0.00     0.00  Frustum(double, double, double, double, double, double, double*)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.02% of 46.70 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]    100.0    0.00   46.70                 main [1]
+                0.58   46.10       1/1           renderFractal(CameraParams const&, RenderParams const&, unsigned char*) [2]
+                0.00    0.02       1/1           init3D(CameraParams*, RenderParams const*) [10]
+                0.01    0.00       1/1           saveBMP(char const*, unsigned char const*, int, int) [11]
+                0.00    0.00       1/1           getParameters(char*, CameraParams*, RenderParams*, MandelBoxParams*) [23]
+-----------------------------------------------
+                0.58   46.10       1/1           main [1]
+[2]     99.9    0.58   46.10       1         renderFractal(CameraParams const&, RenderParams const&, unsigned char*) [2]
+                2.72   42.68 8294400/8294400     rayMarch(RenderParams const&, vec3 const&, vec3 const&, pixelData&) [3]
+                0.52    0.00 8294400/8294400     UnProject(double, double, CameraParams, double*) [6]
+                0.18    0.00 8294400/8294400     getColour(pixelData const&, RenderParams const&, vec3 const&, vec3 const&) [8]
+                0.00    0.00    2161/2161        getTime() [16]
+                0.00    0.00    2160/2160        printProgress(double, double) [17]
+-----------------------------------------------
+                2.72   42.68 8294400/8294400     renderFractal(CameraParams const&, RenderParams const&, unsigned char*) [2]
+[3]     97.2    2.72   42.68 8294400         rayMarch(RenderParams const&, vec3 const&, vec3 const&, pixelData&) [3]
+               40.79    0.00 314386613/325959167     MandelBoxDE(vec3 const&, MandelBoxParams const&) [4]
+                0.13    1.51 1928759/1928759     normal(vec3 const&, vec3&) [5]
+                0.26    0.00 314386613/325959167     DE(vec3 const&) [7]
+-----------------------------------------------
+                1.50    0.00 11572554/325959167     normal(vec3 const&, vec3&) [5]
+               40.79    0.00 314386613/325959167     rayMarch(RenderParams const&, vec3 const&, vec3 const&, pixelData&) [3]
+[4]     90.6   42.29    0.00 325959167         MandelBoxDE(vec3 const&, MandelBoxParams const&) [4]
+-----------------------------------------------
+                0.13    1.51 1928759/1928759     rayMarch(RenderParams const&, vec3 const&, vec3 const&, pixelData&) [3]
+[5]      3.5    0.13    1.51 1928759         normal(vec3 const&, vec3&) [5]
+                1.50    0.00 11572554/325959167     MandelBoxDE(vec3 const&, MandelBoxParams const&) [4]
+                0.01    0.00 11572554/325959167     DE(vec3 const&) [7]
+-----------------------------------------------
+                0.52    0.00 8294400/8294400     renderFractal(CameraParams const&, RenderParams const&, unsigned char*) [2]
+[6]      1.1    0.52    0.00 8294400         UnProject(double, double, CameraParams, double*) [6]
+-----------------------------------------------
+                0.01    0.00 11572554/325959167     normal(vec3 const&, vec3&) [5]
+                0.26    0.00 314386613/325959167     rayMarch(RenderParams const&, vec3 const&, vec3 const&, pixelData&) [3]
+[7]      0.6    0.27    0.00 325959167         DE(vec3 const&) [7]
+-----------------------------------------------
+                0.18    0.00 8294400/8294400     renderFractal(CameraParams const&, RenderParams const&, unsigned char*) [2]
+[8]      0.4    0.18    0.00 8294400         getColour(pixelData const&, RenderParams const&, vec3 const&, vec3 const&) [8]
+-----------------------------------------------
+                0.02    0.00       1/1           init3D(CameraParams*, RenderParams const*) [10]
+[9]      0.0    0.02    0.00       1         LookAt(double*, double*, double*, double*) [9]
+                0.00    0.00       2/3           MultiplyMatrices(double*, double const*, double const*) [18]
+-----------------------------------------------
+                0.00    0.02       1/1           main [1]
+[10]     0.0    0.00    0.02       1         init3D(CameraParams*, RenderParams const*) [10]
+                0.02    0.00       1/1           LookAt(double*, double*, double*, double*) [9]
+                0.00    0.00       2/2           LoadIdentity(double*) [19]
+                0.00    0.00       1/1           Frustum(double, double, double, double, double, double, double*) [24]
+                0.00    0.00       1/1           Perspective(double, double, double, double, double*) [21]
+                0.00    0.00       1/3           MultiplyMatrices(double*, double const*, double const*) [18]
+                0.00    0.00       1/1           InvertMatrix(double*, double*) [22]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[11]     0.0    0.01    0.00       1         saveBMP(char const*, unsigned char const*, int, int) [11]
+-----------------------------------------------
+                0.00    0.00    2161/2161        renderFractal(CameraParams const&, RenderParams const&, unsigned char*) [2]
+[16]     0.0    0.00    0.00    2161         getTime() [16]
+-----------------------------------------------
+                0.00    0.00    2160/2160        renderFractal(CameraParams const&, RenderParams const&, unsigned char*) [2]
+[17]     0.0    0.00    0.00    2160         printProgress(double, double) [17]
+-----------------------------------------------
+                0.00    0.00       1/3           init3D(CameraParams*, RenderParams const*) [10]
+                0.00    0.00       2/3           LookAt(double*, double*, double*, double*) [9]
+[18]     0.0    0.00    0.00       3         MultiplyMatrices(double*, double const*, double const*) [18]
+-----------------------------------------------
+                0.00    0.00       2/2           init3D(CameraParams*, RenderParams const*) [10]
+[19]     0.0    0.00    0.00       2         LoadIdentity(double*) [19]
+-----------------------------------------------
+                0.00    0.00       1/1           __do_global_ctors_aux [30]
+[20]     0.0    0.00    0.00       1         global constructors keyed to _Z8lightingRK4vec3S1_S1_S1_RS_ [20]
+-----------------------------------------------
+                0.00    0.00       1/1           init3D(CameraParams*, RenderParams const*) [10]
+[21]     0.0    0.00    0.00       1         Perspective(double, double, double, double, double*) [21]
+-----------------------------------------------
+                0.00    0.00       1/1           init3D(CameraParams*, RenderParams const*) [10]
+[22]     0.0    0.00    0.00       1         InvertMatrix(double*, double*) [22]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[23]     0.0    0.00    0.00       1         getParameters(char*, CameraParams*, RenderParams*, MandelBoxParams*) [23]
+-----------------------------------------------
+                0.00    0.00       1/1           init3D(CameraParams*, RenderParams const*) [10]
+[24]     0.0    0.00    0.00       1         Frustum(double, double, double, double, double, double, double*) [24]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+  [20] global constructors keyed to _Z8lightingRK4vec3S1_S1_S1_RS_ [2] renderFractal(CameraParams const&, RenderParams const&, unsigned char*) [16] getTime()
+   [4] MandelBoxDE(vec3 const&, MandelBoxParams const&) [18] MultiplyMatrices(double*, double const*, double const*) [11] saveBMP(char const*, unsigned char const*, int, int)
+  [21] Perspective(double, double, double, double, double*) [7] DE(vec3 const&) [3] rayMarch(RenderParams const&, vec3 const&, vec3 const&, pixelData&)
+  [22] InvertMatrix(double*, double*) [9] LookAt(double*, double*, double*, double*) [6] UnProject(double, double, CameraParams, double*)
+  [19] LoadIdentity(double*)  [10] init3D(CameraParams*, RenderParams const*) [8] getColour(pixelData const&, RenderParams const&, vec3 const&, vec3 const&)
+  [23] getParameters(char*, CameraParams*, RenderParams*, MandelBoxParams*) [5] normal(vec3 const&, vec3&)
+  [17] printProgress(double, double) [24] Frustum(double, double, double, double, double, double, double*)
