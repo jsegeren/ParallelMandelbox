@@ -12,5 +12,11 @@ $(PROGRAM_NAME): main.o print.o timing.o savebmp.o getparams.o 3d.o getcolor.o d
 run-serial: $(PROGRAM_NAME)
 	./$(PROGRAM_NAME)$(EXEXT) params.dat
 
+gprof-mandelbox: main.o print.o timing.o savebmp.o getparams.o 3d.o getcolor.o distance_est.o mandelboxde.o raymarching.o renderer.o init3D.o
+	$(CC) -pg -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+run-gprof-serial: mandelbox-gprof
+	./mandelbox-gprof params.dat; gprof mandelbox-gprof gmon.out;
+
 clean:
 	$(RM) *.o $(PROGRAM_NAME)$(EXEEXT) *~
