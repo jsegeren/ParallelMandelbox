@@ -20,9 +20,13 @@
 */
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "camera.h"
 #include "renderer.h"
 #include "mandelbox.h"
+
+#define CAM_DATA_FILE "cam_params.dat"
+
 
 void getParameters(char *filename, CameraParams *camera_params, RenderParams *renderer_params,
 		   MandelBoxParams *mandelBox_paramsP);
@@ -36,19 +40,41 @@ int main(int argc, char** argv)
 {
   CameraParams    camera_params;
   RenderParams    renderer_params;
-  
+
+	FILE *cam_data_file;
+	cam_data_file = fopen(CAM_DATA_FILE,"r");
+
+
   getParameters(argv[1], &camera_params, &renderer_params, &mandelBox_params);
 
   int image_size = renderer_params.width * renderer_params.height;
   unsigned char *image = (unsigned char*)malloc(3*image_size*sizeof(unsigned char));
 
-  init3D(&camera_params, &renderer_params);
+	//Save the original file name (not sure why because the files are going to named f001.bmp etc)
+	char file_name[80];
+	strncpy(file_name, renderer_params.file_name, 80);
 
-  renderFractal(camera_params, renderer_params, image);
-  
-  saveBMP(renderer_params.file_name, image, renderer_params.width, renderer_params.height);
-  
-  free(image);
+	int current_frame_num = 0;
+
+	while (!feof(cam_data_file)) {
+
+		for (int i=0; i<3; i++) fscanf(cam_data_file, " %lf", &camera_params.camPos[i]);
+		for (int i=0; i<3; i++) fscanf(cam_data_file, " %lf", &camera_params.camTarget[i]);
+
+		//update filename of current frame
+		sprintf(renderer_params.file_name, "%s%03d%s", "videos/f", current_frame_num, ".bmp");
+
+		init3D(&camera_params, &renderer_params);
+
+		renderFractal(camera_params, renderer_params, image);
+
+		saveBMP(renderer_params.file_name, image, renderer_params.width, renderer_params.height);
+
+		current_frame_num++;
+	}
+
+	free(image);
+	fclose(cam_data_file);
 
   return 0;
 }

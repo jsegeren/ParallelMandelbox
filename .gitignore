@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+
+#Project specific
+mandelbox
+generate_cam_data
+videos/

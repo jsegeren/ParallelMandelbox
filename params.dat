@@ -2,14 +2,14 @@
 # location  x,y,z   (7,7,7)
 14.0 8.0 10.0
 # look_at (target)  x,y,z
-0 0 0 
+0 0 0
 # up vector x,y,z;  (0, 1, 0)
 0 1 0
 # field of view     (1)
-1.1  
+1.1
 # IMAGE
 # width height
-3840 2160
+640 480
 # detail level, the smaller the more detailed (-3)
 -3.5
 # MANDELBOX
