@@ -82,12 +82,13 @@ double MandelBoxDE(const vec3 &p0, const MandelBoxParams &params)
       p = p*scale+p0;
       
       // estimate distance
+	  if ( r2 > escape ) break;
       if (r2 < rMin2)    dfactor *= (rFixed2/rMin2);
       else
-	if (r2<rFixed2)  dfactor *= (rFixed2/r2);
+	  if (r2<rFixed2)  dfactor *= (rFixed2/r2);
       dfactor = dfactor*fabs(scale)+1.0;
       assert(dfactor>0);
-      if ( r2 > escape ) break;		
+      //if ( r2 > escape ) break;		
     }
   r2 = p.Magnitude();
   assert(r2>=0);
