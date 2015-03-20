@@ -1,6 +1,6 @@
-LDFLAGS = -lm
-CFLAGS= -O3 -Wall
-CXXFLAGS= -O3 -Wall
+LDFLAGS = -lm -march=native
+CFLAGS= -O3 -Wall -march=native
+CXXFLAGS= -O3 -Wall -march=native
 CC=g++
 RM=rm
 
