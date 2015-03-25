@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <mpi.h>
 #include "camera.h"
 #include "renderer_para.h"
 #include "mandelbox_para.h"
@@ -39,6 +40,13 @@ int main(int argc, char** argv)
 {
   CameraParams    camera_params;
   RenderParams    renderer_params;
+  int num_of_nodes, my_rank;
+  int current_frame_num, next_frame;
+
+  //Initialize MPI and get all necessary information
+  MPI_Init(&argc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &num_of_nodes);//Get the number of processors
+  MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);//Get the rank of the current process
 
   //Open cam movement file  
   FILE *cam_data_file;
@@ -53,7 +61,8 @@ int main(int argc, char** argv)
   char file_name[80];
   strncpy(file_name, renderer_params.file_name, 80);
 
-  int current_frame_num = 0;
+  current_frame_num = 0;
+  next_frame = my_rank;
 
   while (!feof(cam_data_file)) {
 
@@ -62,18 +71,25 @@ int main(int argc, char** argv)
 
     //update filename of current frame
     sprintf(renderer_params.file_name, "%s%03d%s", "videos/f", current_frame_num, ".bmp");
+    
+    if (next_frame == current_frame_num){
+      init3D(&camera_params, &renderer_params);
 
-    init3D(&camera_params, &renderer_params);
+      renderFractal(camera_params, renderer_params, image);
 
-    renderFractal(camera_params, renderer_params, image);
+      saveBMP(renderer_params.file_name, image, renderer_params.width, renderer_params.height);
 
-    saveBMP(renderer_params.file_name, image, renderer_params.width, renderer_params.height);
+      printf("node %d rendered frame %d\n", my_rank, current_frame_num);
+      
+      next_frame += num_of_nodes;
+    }
 
     current_frame_num++;
    }
 
   free(image);
   fclose(cam_data_file);
+  MPI_Finalize();
 
   return 0;
 }

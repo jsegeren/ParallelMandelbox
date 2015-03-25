@@ -1,8 +1,9 @@
 
 LDFLAGS = -lm -fopenmp
-CFLAGS= -O3 -Wall -fopenmp
+CFLAGS= -O3 -Wall -fopenmp 
 CXXFLAGS= -O3 -Wall -fopenmp
-CC=g++
+CC=mpicxx
+CXX=mpicxx
 RM=rm
 
 PROGRAM_NAME= mandelbox
@@ -43,7 +44,8 @@ everything-serial: all-serial run-all-serial
 
 all-parallel: $(PROGRAM_NAME_PARA) generate-cam-data
 
-run-all-parallel: cam-data clean-video run-parallel 
+run-all-parallel: cam-data clean-video 
+	mpirun -np 13 ./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat 
 
 
 #MAKE WITH GPROF PROFILING ENABLED
