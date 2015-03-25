@@ -34,7 +34,7 @@ video:
 clean-video:
 	rm -f videos/*
 
-all-serial: $(PROGRAM_NAME) generate-cam-data
+all-serial: $(PROGRAM_NAME) generate-cam-data; mkdir videos;
 
 run-all-serial: cam-data clean-video run-serial video
 	open videos/out.mkv
