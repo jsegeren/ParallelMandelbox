@@ -1,16 +1,25 @@
-LDFLAGS = -lm
-CFLAGS= -O3 -Wall
-CXXFLAGS= -O3 -Wall
+LDFLAGS = -lm -fopenmp
+CFLAGS= -O3 -Wall -fopenmp
+CXXFLAGS= -O3 -Wall -fopenmp
 CC=g++
 RM=rm
 
 PROGRAM_NAME= mandelbox
+PROGRAM_NAME_PARA= mandelbox_para
+
+all: mandelbox mandelbox_para generate-cam-data
 
 $(PROGRAM_NAME): main.o print.o timing.o savebmp.o getparams.o 3d.o getcolor.o distance_est.o mandelboxde.o raymarching.o renderer.o init3D.o
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
+$(PROGRAM_NAME_PARA): main_para.o print.o timing.o savebmp.o getparams_para.o 3d_para.o getcolor.o distance_est_para.o mandelboxde_para.o raymarching_para.o renderer_para.o init3D_para.o
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
 run-serial: $(PROGRAM_NAME)
 	./$(PROGRAM_NAME)$(EXEXT) params.dat
+
+run-parallel: $(PROGRAM_NAME_PARA)
+	./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat
 
 generate-cam-data: generate_cam_data.o
 	$(CC) -o generate_cam_data $^ $(CFLAGS) $(LDFLAGS)
