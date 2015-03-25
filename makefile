@@ -41,6 +41,10 @@ run-all-serial: cam-data clean-video run-serial video
 
 everything-serial: all-serial run-all-serial
 
+all-parallel: $(PROGRAM_NAME_PARA) generate-cam-data
+
+run-all-parallel: cam-data clean-video run-parallel 
+
 
 #MAKE WITH GPROF PROFILING ENABLED
 gprof-mandelbox: CFLAGS = -O3 -Wall -g -pg -fprofile-arcs -ftest-coverage
