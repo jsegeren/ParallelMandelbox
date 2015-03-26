@@ -45,7 +45,13 @@ everything-serial: all-serial run-all-serial
 all-parallel: $(PROGRAM_NAME_PARA) generate-cam-data
 
 run-all-parallel: cam-data clean-video 
-	mpirun -np 13 ./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat 
+	@echo "Starting cron cleanup crew..."
+	crontab convert_image_crontab;
+	@echo "Starting program..."	
+	mpirun -np 13 ./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat;
+	@echo "Program complete! Telling the cleaners to go home..."
+	crontab -r;
+	@echo "Done!"
 
 
 #MAKE WITH GPROF PROFILING ENABLED
