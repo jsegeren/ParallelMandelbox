@@ -33,7 +33,7 @@ video:
 	ffmpeg -i 'videos/f%03d.bmp' -r 30 -y videos/out.mkv
 
 clean-video:
-	rm -f videos/*
+	rm -rf videos
 
 all-serial: $(PROGRAM_NAME) generate-cam-data; mkdir videos;
 
@@ -45,6 +45,7 @@ everything-serial: all-serial run-all-serial
 all-parallel: $(PROGRAM_NAME_PARA) generate-cam-data
 
 run-all-parallel: cam-data clean-video 
+	mkdir ./videos
 	@echo "Starting cron cleanup crew..."
 	crontab convert_image_crontab;
 	@echo "Starting program..."	
@@ -52,7 +53,6 @@ run-all-parallel: cam-data clean-video
 	@echo "Program complete! Telling the cleaners to go home..."
 	crontab -r;
 	@echo "Done!"
-
 
 #MAKE WITH GPROF PROFILING ENABLED
 gprof-mandelbox: CFLAGS = -O3 -Wall -g -pg -fprofile-arcs -ftest-coverage
