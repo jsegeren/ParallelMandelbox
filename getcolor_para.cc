@@ -64,6 +64,7 @@ vec3 getColour(const pixelData &pixData, const RenderParams &render_params,
 	  clamp(hitColor, 0.0, 1.0);
 	  hitColor = hitColor*hitColor;
 
+    double r, g, b;
     //BRIGHT GREEN
     r = 0;//0.94118 - 0.78431;
     g = 0.58824 - 1.0;
