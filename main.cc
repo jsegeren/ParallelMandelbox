@@ -60,9 +60,10 @@ int main(int argc, char** argv)
 
 		for (int i=0; i<3; i++) fscanf(cam_data_file, " %lf", &camera_params.camPos[i]);
 		for (int i=0; i<3; i++) fscanf(cam_data_file, " %lf", &camera_params.camTarget[i]);
+		for (int i=0; i<3; i++) fscanf(cam_data_file, " %lf", &camera_params.camUp[i]);
 
 		//update filename of current frame
-		sprintf(renderer_params.file_name, "%s%03d%s", "videos/f", current_frame_num, ".bmp");
+		sprintf(renderer_params.file_name, "%s%04d%s", "videos/f", current_frame_num, ".bmp");
 
 		init3D(&camera_params, &renderer_params);
 

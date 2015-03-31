@@ -1,6 +1,6 @@
 
 LDFLAGS = -lm -fopenmp
-CFLAGS= -O3 -Wall -fopenmp 
+CFLAGS= -O3 -Wall -fopenmp
 CXXFLAGS= -O3 -Wall -fopenmp
 CC=mpicxx
 CXX=mpicxx
@@ -30,10 +30,10 @@ cam-data: generate-cam-data
 	./generate_cam_data
 
 video:
-	ffmpeg -i 'videos/f%03d.jpg' -r 30 -y videos/out.mkv
+	ffmpeg -r 30 -i 'videos/f%04d.jpg' -r 30 -y videos/out.mkv
 
 clean-video:
-	rm -rf videos/*
+	rm -rf videos
 
 all-serial: $(PROGRAM_NAME) generate-cam-data; mkdir videos;
 
@@ -44,11 +44,11 @@ everything-serial: all-serial run-all-serial
 
 all-parallel: $(PROGRAM_NAME_PARA) generate-cam-data
 
-run-all-parallel: cam-data clean-video 
-	mkdir -p ./videos
+run-all-parallel: cam-data clean-video
+	mkdir ./videos
 	@echo "Starting cron cleanup crew..."
 	crontab convert_image_crontab;
-	@echo "Starting program..."	
+	@echo "Starting program..."
 	mpirun -np 13 ./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat;
 	@echo "Program complete! Telling the cleaners to go home..."
 	crontab -r;

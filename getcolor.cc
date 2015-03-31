@@ -63,6 +63,16 @@ vec3 getColour(const pixelData &pixData, const RenderParams &render_params,
 	  //gamma correction
 	  clamp(hitColor, 0.0, 1.0);
 	  hitColor = hitColor*hitColor;
+
+    //BRIGHT GREEN
+      r = 0;//0.94118 - 0.78431;
+      g = 0.58824 - 1.0;
+      b = 0; //.58824 - 0.23529;
+
+      hitColor.x = (hitColor.x * r) + 0;
+      hitColor.y = (hitColor.y * g) + 0.95;
+      hitColor.z = (hitColor.z * b) + 0;
+
 	}
       if(render_params.colourType == 1)
 	{

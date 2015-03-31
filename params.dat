@@ -11,17 +11,17 @@
 # width height
 640 480
 # detail level, the smaller the more detailed (-3)
--3.5
+-2.5
 # MANDELBOX
 # scale, rMin, rFixed  (2 0.5 1)
-2.0 0.5 1
+2.0 0.1 1.5
 # max number of iterations, escape time
 18 100
 # COLORING
 # type 0 or 1
 1
 # brightness
-1.2
+1.1
 # super sampling anti aliasing 0 = off, 1 = on
 0
 # IMAGE FILE NAME
