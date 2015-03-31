@@ -30,7 +30,7 @@ cam-data: generate-cam-data
 	./generate_cam_data
 
 video:
-	ffmpeg -i 'videos/f%03d.bmp' -r 30 -y videos/out.mkv
+	ffmpeg -i 'videos/f%03d.jpg' -r 30 -y videos/out.mkv
 
 clean-video:
 	rm -rf videos/*
