@@ -48,7 +48,7 @@ int main(int argc, char** argv)
   MPI_Comm_size(MPI_COMM_WORLD, &num_of_nodes);//Get the number of processors
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);//Get the rank of the current process
 
-  //Open cam movement file  
+  //Open cam movement file
   FILE *cam_data_file;
   cam_data_file = fopen(CAM_DATA_FILE,"r");
 
@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 
   int image_size = renderer_params.width * renderer_params.height;
   unsigned char *image = (unsigned char*)malloc(3*image_size*sizeof(unsigned char));
-  
+
   //Save the original file name (not sure why because the files are going to named f001.bmp etc)
   char file_name[80];
   strncpy(file_name, renderer_params.file_name, 80);
@@ -68,10 +68,11 @@ int main(int argc, char** argv)
 
     for (int i=0; i<3; i++) fscanf(cam_data_file, " %lf", &camera_params.camPos[i]);
     for (int i=0; i<3; i++) fscanf(cam_data_file, " %lf", &camera_params.camTarget[i]);
+		for (int i=0; i<3; i++) fscanf(cam_data_file, " %lf", &camera_params.camUp[i]);
 
     //update filename of current frame
-    sprintf(renderer_params.file_name, "%s%03d%s", "videos/f", current_frame_num, ".bmp");
-    
+    sprintf(renderer_params.file_name, "%s%04d%s", "videos/f", current_frame_num, ".bmp");
+
     if (next_frame == current_frame_num){
       init3D(&camera_params, &renderer_params);
 
@@ -80,7 +81,7 @@ int main(int argc, char** argv)
       saveBMP(renderer_params.file_name, image, renderer_params.width, renderer_params.height);
 
       printf("node %d rendered frame %d\n", my_rank, current_frame_num);
-      
+
       next_frame += num_of_nodes;
     }
 
