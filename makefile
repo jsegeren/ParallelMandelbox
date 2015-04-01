@@ -5,6 +5,7 @@ CXXFLAGS= -O3 -Wall -fopenmp
 CC=mpicxx
 CXX=mpicxx
 RM=rm
+NP=32
 
 PROGRAM_NAME= mandelbox
 PROGRAM_NAME_PARA= mandelbox_para
@@ -49,7 +50,7 @@ run-all-parallel: cam-data clean-video
 	@echo "Starting cron cleanup crew..."
 	crontab convert_image_crontab;
 	@echo "Starting program..."
-	mpirun -np 13 ./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat;
+	mpirun -np $(NP) ./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat;
 	@echo "Program complete! Telling the cleaners to go home..."
 	crontab -r;
 	@echo "Done!"
