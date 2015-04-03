@@ -72,7 +72,8 @@ int main(int argc, char** argv)
 
     //update filename of current frame
     sprintf(renderer_params.file_name, "%s%04d%s", "videos/f", current_frame_num, ".bmp");
-
+	
+	//Only compute the frame if the processes next frame matches the current frame
     if (next_frame == current_frame_num){
       init3D(&camera_params, &renderer_params);
 
@@ -81,10 +82,11 @@ int main(int argc, char** argv)
       saveBMP(renderer_params.file_name, image, renderer_params.width, renderer_params.height);
 
       printf("node %d rendered frame %d\n", my_rank, current_frame_num);
-
+	  
+	  //Increment the next frame for the process by the number of processes 
       next_frame += num_of_nodes;
     }
-
+	
     current_frame_num++;
    }
 

@@ -22,7 +22,7 @@ run-serial: $(PROGRAM_NAME)
 	./$(PROGRAM_NAME)$(EXEXT) params.dat
 
 run-parallel: $(PROGRAM_NAME_PARA)
-	./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat
+	mpirun -np $(NP) ./$(PROGRAM_NAME_PARA)$(EXEXT) params.dat
 
 generate-cam-data: generate_cam_data.o
 	$(CC) -o generate_cam_data $^ $(CFLAGS) $(LDFLAGS)
@@ -65,4 +65,4 @@ run-gprof-serial: mandelbox-gprof
 	./mandelbox-gprof params.dat; gprof mandelbox-gprof gmon.out;
 
 clean:
-	$(RM) *.o $(PROGRAM_NAME)$(EXEEXT) *~ generate_cam_data
+	$(RM) *.o $(PROGRAM_NAME)$(EXEEXT) $(PROGRAM_NAME_PARA)$(EXEEXT) *~ generate_cam_data

@@ -1,3 +1,23 @@
+/*
+   This file is part of the Mandelbox program developed for the course
+    CS/SE  Distributed Computer Systems taught by N. Nedialkov in the
+    Winter of 2015 at McMaster University.
+
+    Copyright (C) 2015 T. Gwosdz and N. Nedialkov
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include <stdio.h>
 #ifdef _OPENMP
 #include <omp.h>
@@ -36,9 +56,11 @@ void renderFractal(const CameraParams &camera_params, const RenderParams &render
   
   double time = omp_get_wtime();
 
+//Spawn THREAD_COUNT number of threads to run in parallel
 # pragma omp parallel num_threads(THREAD_COUNT)	\
   private(i, j, k, to, pix_data)
 {
+//Distribute the for loop/pixels between the threads that were spawned
 # pragma omp for schedule(dynamic)  
   for(j = 0; j < height; j++)
     {
@@ -51,7 +73,7 @@ void renderFractal(const CameraParams &camera_params, const RenderParams &render
 	      vec3 samples[9];
 	      int idx = 0;
 	      for(int ssj = -1; ssj < 2; ssj++){
-		for(int ssi = -1; ssi< 2; ssi++){
+		  for(int ssi = -1; ssi< 2; ssi++){
 		  UnProject(i+ssi*0.5, j+ssj*0.5, camera_params, farPoint);
 		  
 		  // to = farPoint - camera_params.camPos
@@ -94,9 +116,7 @@ void renderFractal(const CameraParams &camera_params, const RenderParams &render
 	  image[k+1] = (unsigned char)(color.y * 255);
 	  image[k]   = (unsigned char)(color.z * 255);
 	}
-      //printProgress((j+1)/(double)height,getTime()-time);
     }
 }
-  printf("\nrendering took %f seconds", omp_get_wtime()-time);
-  printf("\nrendering done:\n");
+  printf("\nrendering done in: %f seconds\n", omp_get_wtime()-time);
 }
