@@ -29,5 +29,6 @@
 
 #Project specific
 mandelbox
+mandelbox_serial
 generate_cam_data
 videos/
