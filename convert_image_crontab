@@ -1,1 +1,1 @@
-* * * * * ~/4F03/segerej/project/ParallelMandelbox/convert_image_job.sh 20 # Run the convert and cleanup every 20 seconds!
+* * * * * ~/4F03/segerej/project/ParallelMandelbox/convert_image_job.sh # Run the convert and cleanup every minute
